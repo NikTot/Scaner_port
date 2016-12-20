@@ -18,11 +18,11 @@ namespace Scaner_port
     {
         private GridViewColumnHeader listViewSortCol = null;
         private SortAdorner listViewSortAdorner = null;
-        public string[] ipTileService = new string[] { "91.236.50.81", "91.236.50.36", "91.236.50.33", "10.54.18.212", "10.54.18.210" };
+         
         public MainWindow()
         {
             InitializeComponent();
-            List<PortInfo> pi = MainWindow.GetOpenPort();
+            List<PortInfo> pi = FiltrPort();
             listView.ItemsSource = pi;
         }
 
@@ -41,6 +41,24 @@ namespace Scaner_port
                     state: p.State.ToString()
                     );
             }).ToList();
+        }
+
+        private static List<PortInfo> FiltrPort()
+        {
+            List<PortInfo> port = MainWindow.GetOpenPort();
+            List<PortInfo> portnew = new List<PortInfo>();
+            string[] ipTileService = new string[] { "91.236.50.81", "91.236.50.36", "91.236.50.33", "10.54.18.212", "10.54.18.210" };
+
+            for (int i = 0; i < ipTileService.Length; i++)
+                foreach (var portinf in port)
+                {
+                    if (portinf.Remote == ipTileService[i])
+                    {
+                        portnew.Add(portinf);
+                    }
+                }
+
+            return portnew;
         }
 
         private void GridViewColumnHeader_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -66,7 +84,7 @@ namespace Scaner_port
 
         private void btnUpdate_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            List<PortInfo> pi = MainWindow.GetOpenPort();
+            List<PortInfo> pi = FiltrPort();
             listView.ItemsSource = pi;
         }
     }

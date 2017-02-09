@@ -18,7 +18,7 @@ namespace Scaner_port
     {
         private GridViewColumnHeader listViewSortCol = null;
         private SortAdorner listViewSortAdorner = null;
-         
+       
         public MainWindow()
         {
             InitializeComponent();
@@ -57,7 +57,6 @@ namespace Scaner_port
                         portnew.Add(portinf);
                     }
                 }
-
             return portnew;
         }
 
@@ -79,7 +78,6 @@ namespace Scaner_port
             listViewSortAdorner = new SortAdorner(listViewSortCol, newDir);
             AdornerLayer.GetAdornerLayer(listViewSortCol).Add(listViewSortAdorner);
             listView.Items.SortDescriptions.Add(new SortDescription(sortBy, newDir));
-
         }
 
         private void btnUpdate_Click(object sender, System.Windows.RoutedEventArgs e)
